@@ -1,8 +1,8 @@
-﻿import { IMovableThing } from "./IMovableThing";
-import { IPoint } from "../Primitives/IPoint";
-import { TransitionableThing } from "./TransitionableThing";
-import { MoveTransition } from "./Transitions/MoveTransition";
-import { MoveInTimeTransition } from "./Transitions/MoveInTimeTransition";
+import { IMovableThing } from './IMovableThing';
+import { IPoint } from '../Primitives/IPoint';
+import { TransitionableThing } from './TransitionableThing';
+import { MoveTransition } from './Transitions/MoveTransition';
+import { MoveInTimeTransition } from './Transitions/MoveInTimeTransition';
 
 
 export class MovableThing extends TransitionableThing implements IMovableThing {

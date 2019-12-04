@@ -1,8 +1,8 @@
-import { ITransition } from "./ITransition";
-import { IThing } from "../IThing";
-import { IPoint } from "../../Primitives/IPoint";
-import { Utilities } from "../../Utilities/Utilities";
-import { IUpdateContext } from "../../Utilities/IUpdateContext";
+import { ITransition } from './ITransition';
+import { IThing } from '../IThing';
+import { IPoint } from '../../Primitives/IPoint';
+import { Utilities } from '../../Utilities/Utilities';
+import { IUpdateContext } from '../../Utilities/IUpdateContext';
 
 export class MoveTransition implements ITransition {
     private hasFinished: boolean = false;
@@ -10,16 +10,16 @@ export class MoveTransition implements ITransition {
     public get type(): string {
         return 'move';
     }
-    
+
     public get finished(): boolean {
         return this.hasFinished;
     }
 
     constructor(private targetPosition: IPoint, private pixelsPerSecond: IPoint, private callback?: () => void) {
     }
-   
+
     update(thing: IThing, context: IUpdateContext): void {
-        var delta: IPoint = Utilities.calculateDelta(context.ticks, this.pixelsPerSecond);
+        let delta: IPoint = Utilities.calculateDelta(context.ticks, this.pixelsPerSecond);
         if (this.targetPosition) {
             Utilities.moveThing(thing, this.targetPosition, delta);
             if (this.targetPosition.x === thing.position.x && this.targetPosition.y === thing.position.y) {

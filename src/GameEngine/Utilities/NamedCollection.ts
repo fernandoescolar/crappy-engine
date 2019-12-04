@@ -1,4 +1,4 @@
-﻿import { INamedCollection } from "./INamedCollection";
+import { INamedCollection } from './INamedCollection';
 
 export class NamedCollection<T> implements INamedCollection<T> {
     private items: { [key: string]: T };
@@ -36,7 +36,7 @@ export class NamedCollection<T> implements INamedCollection<T> {
     }
 
     public containsKey(key: string): boolean {
-        return (typeof this.items[key]) !== "undefined";
+        return (typeof this.items[key]) !== 'undefined';
     }
 
     public clear(): void {
@@ -45,10 +45,10 @@ export class NamedCollection<T> implements INamedCollection<T> {
     }
 
     public forEach(callback: (key: string, value: T) => any): void {
-        for (var name in this.items) {
+        for (let name in this.items) {
             if (this.items.hasOwnProperty(name)) {
-                var element: T = this.items[name];
-                var ret: any = callback(name, element);
+                let element: T = this.items[name];
+                let ret: any = callback(name, element);
                 if (ret === false) {
                     return;
                 }

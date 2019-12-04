@@ -1,4 +1,4 @@
-﻿import { IJoystickInput } from "./IJoystickInput";
+import { IJoystickInput } from './IJoystickInput';
 
 export class KeyboardInput implements IJoystickInput {
     private keyDownEventHandler: (ev: KeyboardEvent) => void;
@@ -23,13 +23,13 @@ export class KeyboardInput implements IJoystickInput {
     }
 
     public start(): void {
-        document.addEventListener("keydown", this.keyDownEventHandler, true);
-        document.addEventListener("keyup", this.keyUpEventHandler, true);
+        document.addEventListener('keydown', this.keyDownEventHandler, true);
+        document.addEventListener('keyup', this.keyUpEventHandler, true);
     }
 
     public stop(): void {
-        document.removeEventListener("keydown", this.keyDownEventHandler, true);
-        document.removeEventListener("keyup", this.keyUpEventHandler, true);
+        document.removeEventListener('keydown', this.keyDownEventHandler, true);
+        document.removeEventListener('keyup', this.keyUpEventHandler, true);
     }
 
     onKeyDown(ev: KeyboardEvent): boolean {

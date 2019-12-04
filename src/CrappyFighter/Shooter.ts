@@ -1,12 +1,12 @@
-import * as Engine from "../GameEngine";
+import * as Engine from '../GameEngine';
 
 export class ShooterGame extends Engine.Game {
     public camera: Engine.ICamera;
 
     constructor(graphics: Engine.IGraphics) {
         super(graphics);
-    
-        this.camera = this.createDefaultCamera();  
+
+        this.camera = this.createDefaultCamera();
     }
     public initialize(start: StartScene, shooter: ShooterScenario): void {
         this.scenarios.add(start.id, start);
@@ -14,7 +14,7 @@ export class ShooterGame extends Engine.Game {
 
         start.onStartGame = () => { this.currentScenarioKey = shooter.id; };
         shooter.onEndGame = () => { this.currentScenarioKey = start.id; };
-        
+
         this.currentScenarioKey = start.id;
     }
 
@@ -32,11 +32,9 @@ export class ShooterGame extends Engine.Game {
 }
 
 export class StartScene extends Engine.Scenario {
-    
+
     protected get width(): number { return this.cameras[0].size.width; }
     protected get height(): number { return this.cameras[0].size.height; }
-
-    public onStartGame: () => void = () => {};
 
     constructor(public pad: Engine.IJoystickInput, camera: Engine.ICamera) {
         super('start', camera);
@@ -45,6 +43,8 @@ export class StartScene extends Engine.Scenario {
             this.pad.onfire = () => this.startGame();
         }, 2000);
     }
+
+    public onStartGame: () => void = () => {};
 
     ready(): void {
 
@@ -56,10 +56,11 @@ export class StartScene extends Engine.Scenario {
 }
 
 export class ShooterScenario extends Engine.Scenario {
+
+    protected get width(): number { return this.cameras[0].size.width; }
+    protected get height(): number { return this.cameras[0].size.height; }
     private scoreText: Engine.TextAnimation;
     private score: number;
-
-    public onEndGame: () => void = () => {};
 
     public player: Player;
     public playerLive: Array<Engine.ISprite>;
@@ -68,15 +69,14 @@ export class ShooterScenario extends Engine.Scenario {
     public explosions: Array<Engine.ISprite>;
     public enemyCounter: number;
 
-    protected get width(): number { return this.cameras[0].size.width; }
-    protected get height(): number { return this.cameras[0].size.height; }
-
     constructor(public pad: Engine.IJoystickInput, camera: Engine.ICamera) {
         super('shooter', camera);
 
         this.pad = pad;
         this.pad.onfire = () => { this.shoot(); };
     }
+
+    public onEndGame: () => void = () => {};
 
     start(): void {
         this.pad.start();
@@ -88,15 +88,15 @@ export class ShooterScenario extends Engine.Scenario {
         this.enemyCounter = 0;
         this.score = 0;
 
-        var bg = this.createBackground(30);
+        let bg = this.createBackground(30);
         if (bg) this.things.push(bg);
 
         this.scoreText = this.createScore();
         this.player = this.createPlayer(20, 100);
         if (this.player) this.things.push(this.player);
 
-        for (var i = 0; i < this.player.livePoints; i++) {
-            var liveBlock = this.createPlayerLive();
+        for (let i = 0; i < this.player.livePoints; i++) {
+            let liveBlock = this.createPlayerLive();
             liveBlock.position.x = 10 + liveBlock.size.width * i;
             liveBlock.position.y = this.height - liveBlock.size.height - 10;
 
@@ -156,12 +156,12 @@ export class ShooterScenario extends Engine.Scenario {
 
     addEnemy(): void {
         setTimeout(() => { this.addEnemy(); }, Math.random() * 3000);
-        var enemy = this.createEnemy();
+        let enemy = this.createEnemy();
         if (enemy) {
             enemy.position.x = this.width + enemy.size.width;
             enemy.position.y = Math.random() * (this.height - enemy.size.height);
 
-            //enemy.speed = Math.random() * 50 + 40;
+            // enemy.speed = Math.random() * 50 + 40;
 
             this.enemies.push(enemy);
             this.things.push(enemy);
@@ -169,10 +169,10 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     enemyShot(enemy: Enemy): void {
-        var enemyShot = this.createEnemyShot();
+        let enemyShot = this.createEnemyShot();
         enemyShot.position.x = enemy.position.x;
         enemyShot.position.y = enemy.position.y;
-        //enemyShot.speed = 95;
+        // enemyShot.speed = 95;
         enemyShot.id = '_#' + enemyShot.id;
 
         this.enemies.push(enemyShot);
@@ -180,7 +180,7 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     shoot(): void {
-        var shot = this.createShot();
+        let shot = this.createShot();
         if (shot) {
             this.shots.push(shot);
             this.things.push(shot);
@@ -190,7 +190,7 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     explote(explosionType: ExplosionType, x: number, y: number) {
-        var sprite = this.createExplosion(explosionType);
+        let sprite = this.createExplosion(explosionType);
         if (sprite) {
             sprite.position.x = x;
             sprite.position.y = y;
@@ -207,10 +207,10 @@ export class ShooterScenario extends Engine.Scenario {
         this.pad.stop();
 
         setTimeout(() => {
-            var sprite = this.createGameover();
+            let sprite = this.createGameover();
             sprite.position.y = this.height;
             sprite.move(new Engine.Point((this.width - sprite.size.width) / 2, (this.height - sprite.size.height) / 2), new Engine.Point(90, 90));
-            //sprite.speed = 90;
+            // sprite.speed = 90;
             this.things.push(sprite);
         }, 400);
         setTimeout(() => this.stop(), 2000);
@@ -218,7 +218,7 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     deleteThing(obj: Engine.IThing) {
-        var index: number = this.things.indexOf(obj);
+        let index: number = this.things.indexOf(obj);
         this.things.splice(index, 1);
     }
 
@@ -256,7 +256,7 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     updateScore(): void {
-        this.scoreText.text = "Score: " + (this.score < 0 ? 0 : this.score);
+        this.scoreText.text = 'Score: ' + (this.score < 0 ? 0 : this.score);
     }
 
     updateShots(): void {
@@ -269,8 +269,8 @@ export class ShooterScenario extends Engine.Scenario {
 
     updateExplosions(): void {
         this.explosions.forEach((explosion, index) => {
-            var sprite = <Engine.Sprite>explosion;
-            var animation = <Engine.ImageSheetAnimation>sprite.currentAnimation;
+            let sprite = <Engine.Sprite>explosion;
+            let animation = <Engine.ImageSheetAnimation>sprite.currentAnimation;
             if (animation.hasEnd) {
                 this.deleteExplosion(explosion, index);
             }
@@ -298,7 +298,7 @@ export class ShooterScenario extends Engine.Scenario {
 
                 enemy.livePoints = 0;
                 enemy.shouldDelete = true;
-                
+
                 this.explote(ExplosionType.Player, enemy.position.x, enemy.position.y);
                 if (this.player.livePoints <= 0) {
                     this.gameover();
@@ -328,7 +328,7 @@ export class Player extends Engine.Sprite {
     private speed: Engine.IPoint;
 
     constructor(private pad: Engine.IJoystickInput, animation: Engine.IAnimation, public livePoints: number, private maxWidth: number, private maxHeight: number) {
-        super("player", animation);
+        super('player', animation);
         this.speed = new Engine.Point(200, 200);
     }
 
@@ -338,8 +338,8 @@ export class Player extends Engine.Sprite {
     }
 
     private updatePosition(): void {
-        var x: number = this.position.x;
-        var y: number = this.position.y;
+        let x: number = this.position.x;
+        let y: number = this.position.y;
         if (this.pad.up) {
             y -= 30;
         }
@@ -356,8 +356,8 @@ export class Player extends Engine.Sprite {
             x -= 30;
         }
 
-        var w = this.maxWidth - this.size.width;
-        var h = this.maxHeight - this.size.height;
+        let w = this.maxWidth - this.size.width;
+        let h = this.maxHeight - this.size.height;
 
         if (x < 0) x = 0;
         if (y < 0) y = 0;
@@ -376,7 +376,7 @@ export class Shot extends Engine.Sprite {
     private speed: Engine.IPoint;
 
     constructor(maxWidth: number, animation: Engine.IAnimation) {
-        super("shoot-" + (Shot.counter++), animation);
+        super('shoot-' + (Shot.counter++), animation);
 
         this.shouldDelete = false;
         this.speed = new Engine.Point(300, 300);
@@ -403,7 +403,7 @@ export class Enemy extends Engine.Sprite {
     public shouldDelete: boolean;
 
     constructor(animation: Engine.IAnimation, public livePoints: number) {
-        super("enemy-" + (Enemy.counter++), animation);
+        super('enemy-' + (Enemy.counter++), animation);
 
         this.livePoints = livePoints;
         this.shouldDelete = false;

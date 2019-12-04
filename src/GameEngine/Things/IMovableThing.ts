@@ -1,8 +1,8 @@
-﻿import { IThing } from "./IThing";
-import { IPoint } from "../Primitives/IPoint";
+import { IThing } from './IThing';
+import { IPoint } from '../Primitives/IPoint';
 
 export interface IMovableThing extends IThing {
-    
+
     move(position: IPoint, pixelsPerSecond: IPoint): void;
     move(position: IPoint, pixelsPerSecond: IPoint, onMoved: () => void): void;
 

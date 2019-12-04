@@ -1,11 +1,11 @@
-﻿import { IThing } from "./IThing";
-import { IPoint } from "../Primitives/IPoint";
-import { ISize } from "../Primitives/ISize";
-import { IRectangle } from "../Primitives/IRectangle";
-import { Point } from "../Primitives/Point";
-import { Size } from "../Primitives/Size";
-import { Rectangle } from "../Primitives/Rectangle";
-import { IUpdateContext } from "../Utilities/IUpdateContext";
+import { IThing } from './IThing';
+import { IPoint } from '../Primitives/IPoint';
+import { ISize } from '../Primitives/ISize';
+import { IRectangle } from '../Primitives/IRectangle';
+import { Point } from '../Primitives/Point';
+import { Size } from '../Primitives/Size';
+import { Rectangle } from '../Primitives/Rectangle';
+import { IUpdateContext } from '../Utilities/IUpdateContext';
 
 export class Thing implements IThing {
     public id: string;

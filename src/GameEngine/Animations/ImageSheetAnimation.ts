@@ -1,14 +1,14 @@
-﻿import { IAnimation } from "./IAnimation";
-import { StaticImageAnimation } from "./StaticImageAnimation";
+import { IAnimation } from './IAnimation';
+import { StaticImageAnimation } from './StaticImageAnimation';
 
-import { ISize } from "../Primitives/ISize";
-import { IGraphics } from "../Primitives/IGraphics";
-import { IRectangle } from "../Primitives/IRectangle";
-import { Point } from "../Primitives/Point";
-import { Size } from "../Primitives/Size";
-import { Rectangle } from "../Primitives/Rectangle";
+import { ISize } from '../Primitives/ISize';
+import { IGraphics } from '../Primitives/IGraphics';
+import { IRectangle } from '../Primitives/IRectangle';
+import { Point } from '../Primitives/Point';
+import { Size } from '../Primitives/Size';
+import { Rectangle } from '../Primitives/Rectangle';
 
-import { IUpdateContext } from "../Utilities/IUpdateContext";
+import { IUpdateContext } from '../Utilities/IUpdateContext';
 
 export class ImageSheetAnimation extends StaticImageAnimation implements IAnimation {
     public loop: boolean;
@@ -22,14 +22,14 @@ export class ImageSheetAnimation extends StaticImageAnimation implements IAnimat
     constructor(id: string, image: HTMLImageElement, frameSize: ISize, loop?: boolean, frameIndexes?: Array<number>) {
         super(id, image);
 
-        this.loop = (typeof loop === "undefined") ? true : loop;
+        this.loop = (typeof loop === 'undefined') ? true : loop;
         this.speed = 50;
         this.ticks = 0;
         this.hasEnd = false;
 
-        var columns: number = image.width / frameSize.width;
-        var rows: number = image.height / frameSize.height;
-        this.frameCount = (typeof frameIndexes === "undefined") ? columns * rows : frameIndexes.length;
+        let columns: number = image.width / frameSize.width;
+        let rows: number = image.height / frameSize.height;
+        this.frameCount = (typeof frameIndexes === 'undefined') ? columns * rows : frameIndexes.length;
         this.imageSize = frameSize;
         this.initializeFrames(columns, rows, frameIndexes);
     }
@@ -50,7 +50,7 @@ export class ImageSheetAnimation extends StaticImageAnimation implements IAnimat
     }
 
     internalDraw(graphics: IGraphics, image: HTMLImageElement, rect: IRectangle): void {
-        var frameRect: IRectangle = this.frames[this.frameIndex];
+        let frameRect: IRectangle = this.frames[this.frameIndex];
 
         graphics.drawImage(
             image,
@@ -60,8 +60,8 @@ export class ImageSheetAnimation extends StaticImageAnimation implements IAnimat
     }
 
     initializeFrames(columns: number, rows: number, frameIndexes?: Array<number>): void {
-        if (typeof frameIndexes === "undefined") {
-            for (var i: number = 0; i < this.frameCount; i++) {
+        if (typeof frameIndexes === 'undefined') {
+            for (let i: number = 0; i < this.frameCount; i++) {
                 this.addFrame(i, columns, rows);
             }
         } else {
@@ -72,8 +72,8 @@ export class ImageSheetAnimation extends StaticImageAnimation implements IAnimat
     }
 
     addFrame(index: number, columns: number, rows: number): void {
-        var row: number = Math.ceil(index / columns);
-        var column: number = Math.ceil(index % columns);
+        let row: number = Math.ceil(index / columns);
+        let column: number = Math.ceil(index % columns);
 
         this.frames.push(new Rectangle(new Point(column * this.imageSize.width, row * this.imageSize.height), this.imageSize));
     }

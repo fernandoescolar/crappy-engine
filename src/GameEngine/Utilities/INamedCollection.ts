@@ -1,4 +1,4 @@
-﻿export interface INamedCollection<T> {
+export interface INamedCollection<T> {
     getLength(): number;
     get(key: string): T;
     add(key: string, element: T): void;

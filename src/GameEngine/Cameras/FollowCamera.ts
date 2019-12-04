@@ -1,12 +1,12 @@
-﻿import { ICamera } from "./ICamera";
-import { Camera } from "./Camera";
+import { ICamera } from './ICamera';
+import { Camera } from './Camera';
 
-import { IThing } from "../Things/IThing";
+import { IThing } from '../Things/IThing';
 
-import { IPoint } from "../Primitives/IPoint";
-import { ISize } from "../Primitives/ISize";
+import { IPoint } from '../Primitives/IPoint';
+import { ISize } from '../Primitives/ISize';
 
-import { IUpdateContext } from "../Utilities/IUpdateContext";
+import { IUpdateContext } from '../Utilities/IUpdateContext';
 
 export class FollowCamera extends Camera implements ICamera {
 

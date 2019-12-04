@@ -1,4 +1,4 @@
-﻿import { INamedCollection } from "./Utilities/INamedCollection";
+import { INamedCollection } from './Utilities/INamedCollection';
 
 export interface IResources {
     images: INamedCollection<HTMLImageElement>;

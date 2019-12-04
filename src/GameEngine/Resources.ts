@@ -1,6 +1,6 @@
-﻿import { IResources } from "./IResources";
-import { INamedCollection } from "./Utilities/INamedCollection";
-import { NamedCollection } from "./Utilities/NamedCollection";
+import { IResources } from './IResources';
+import { INamedCollection } from './Utilities/INamedCollection';
+import { NamedCollection } from './Utilities/NamedCollection';
 
 export class Resources implements IResources {
     public images: INamedCollection<HTMLImageElement>;
@@ -22,8 +22,8 @@ export class Resources implements IResources {
     public loadImage(id: string, imageSource: string): void {
         this.filesToLoad++;
 
-        var image: HTMLImageElement = <HTMLImageElement>document.createElement("img");
-        var img: HTMLImageElement = new Image();
+        let image: HTMLImageElement = <HTMLImageElement>document.createElement('img');
+        let img: HTMLImageElement = new Image();
         img.onload = (ev: Event) => {
             image.width = img.width;
             image.height = img.height;
@@ -39,10 +39,10 @@ export class Resources implements IResources {
     public loadAudio(id: string, audioSource: string): void {
         this.filesToLoad++;
 
-        var audio: HTMLAudioElement = <HTMLAudioElement>document.createElement("audio");
-        audio.preload = "auto";
+        let audio: HTMLAudioElement = <HTMLAudioElement>document.createElement('audio');
+        audio.preload = 'auto';
         audio.onload = (ev: Event) => { this.filesLoaded++; }; // it doesn't works!
-        audio.addEventListener("canplaythrough", (ev: Event) => { this.filesLoaded++; }, false); // it works!!
+        audio.addEventListener('canplaythrough', (ev: Event) => { this.filesLoaded++; }, false); // it works!!
         audio.src = audioSource;
 
         this.audios.add(id, audio);
@@ -54,7 +54,7 @@ export class Resources implements IResources {
                 try { this.lastAudio.pause(); } catch (ex) { console.log(ex); return; }
             }
 
-            var audio: HTMLAudioElement = this.audios.get(id);
+            let audio: HTMLAudioElement = this.audios.get(id);
             audio.currentTime = 0;
             audio.play();
 
@@ -66,7 +66,7 @@ export class Resources implements IResources {
 
     public playAudioLoop(id: string): void {
         try {
-            var audio: HTMLAudioElement = this.audios.get(id);
+            let audio: HTMLAudioElement = this.audios.get(id);
             audio.loop = true;
             audio.currentTime = 0;
             audio.play();
@@ -75,7 +75,7 @@ export class Resources implements IResources {
 
     public stopAudioLoop(id: string): void {
         try {
-            var audio: HTMLAudioElement = this.audios.get(id);
+            let audio: HTMLAudioElement = this.audios.get(id);
             audio.loop = false;
             audio.pause();
         } catch (ex) { console.log(ex); return; }

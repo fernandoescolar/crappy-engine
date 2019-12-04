@@ -1,6 +1,6 @@
-﻿import { IScenario } from "./IScenario";
-import { IScenarioCollection } from "./IScenarioCollection";
-import { IGraphics } from "./Primitives/IGraphics";
+import { IScenario } from './IScenario';
+import { IScenarioCollection } from './IScenarioCollection';
+import { IGraphics } from './Primitives/IGraphics';
 
 export interface IGame {
     scenarios: IScenarioCollection;

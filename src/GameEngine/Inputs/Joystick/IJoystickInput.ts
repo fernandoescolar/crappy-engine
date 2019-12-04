@@ -1,4 +1,4 @@
-﻿export interface IJoystickInput {
+export interface IJoystickInput {
     up: boolean;
     down: boolean;
     left: boolean;

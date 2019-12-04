@@ -1,8 +1,8 @@
-﻿import { IPoint } from "../Primitives/IPoint";
-import { ISize } from "../Primitives/ISize";
-import { IRectangle } from "../Primitives/IRectangle";
-import { IGraphics } from "../Primitives/IGraphics";
-import { IMovableThing } from "../Things/IMovableThing";
+import { IPoint } from '../Primitives/IPoint';
+import { ISize } from '../Primitives/ISize';
+import { IRectangle } from '../Primitives/IRectangle';
+import { IGraphics } from '../Primitives/IGraphics';
+import { IMovableThing } from '../Things/IMovableThing';
 
 export interface ICamera extends IMovableThing {
     screenPosition: IPoint;

@@ -1,16 +1,16 @@
-﻿import { IGame } from "./IGame";
-import { IScenario } from "./IScenario";
-import { IScenarioCollection } from "./IScenarioCollection";
-import { ScenarioCollection } from "./ScenarioCollection";
+import { IGame } from './IGame';
+import { IScenario } from './IScenario';
+import { IScenarioCollection } from './IScenarioCollection';
+import { ScenarioCollection } from './ScenarioCollection';
 
-import { ICamera } from "./Cameras/ICamera";
-import { Camera } from "./Cameras/Camera";
+import { ICamera } from './Cameras/ICamera';
+import { Camera } from './Cameras/Camera';
 
-import { IUpdateContext } from "./Utilities/IUpdateContext";
-import { UpdateContext } from "./Utilities/UpdateContext";
+import { IUpdateContext } from './Utilities/IUpdateContext';
+import { UpdateContext } from './Utilities/UpdateContext';
 
-import { IGraphics } from "./Primitives/IGraphics";
-import { Point } from "./Primitives/Point";
+import { IGraphics } from './Primitives/IGraphics';
+import { Point } from './Primitives/Point';
 
 export class Game implements IGame {
     public scenarios: IScenarioCollection;
@@ -53,7 +53,7 @@ export class Game implements IGame {
     }
 
     public createDefaultCamera(): ICamera {
-        return new Camera("default", new Point(0, 0), this.graphics.screenSize);
+        return new Camera('default', new Point(0, 0), this.graphics.screenSize);
     }
 
     public start(framesPerSecond: number): void {
@@ -63,8 +63,8 @@ export class Game implements IGame {
         this.fpsInterval = 1000 / framesPerSecond;
         this.lastTime = Date.now();
 
-        let update = () => {
-            this.update();      
+        const update = () => {
+            this.update();
             this.loopHandler = window.requestAnimationFrame(update);
         };
 
@@ -82,8 +82,8 @@ export class Game implements IGame {
     }
 
     public update(): void {
-        var now: number = Date.now();
-        var ticks: number = now - this.lastTime;
+        const now: number = Date.now();
+        let ticks: number = now - this.lastTime;
         ticks = ticks <= 0 ? 1 : ticks;
 
         if (!this.isRunning) { return; }
@@ -91,7 +91,7 @@ export class Game implements IGame {
 
         this.updateState();
         this.lastTime = now;
-        var context: IUpdateContext = new UpdateContext(ticks, this.framesPerSecond, this.graphics.screenSize);
+        const context: IUpdateContext = new UpdateContext(ticks, this.framesPerSecond, this.graphics.screenSize);
         this.currentScenario.update(this.graphics, context);
     }
 }

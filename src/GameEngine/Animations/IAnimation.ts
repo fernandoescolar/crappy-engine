@@ -1,6 +1,6 @@
-﻿import { IUpdateContext } from "../Utilities/IUpdateContext";
-import { IRectangle } from "../Primitives/IRectangle";
-import { IGraphics } from "../Primitives/IGraphics";
+import { IUpdateContext } from '../Utilities/IUpdateContext';
+import { IRectangle } from '../Primitives/IRectangle';
+import { IGraphics } from '../Primitives/IGraphics';
 
 export interface IAnimation {
     id: string;

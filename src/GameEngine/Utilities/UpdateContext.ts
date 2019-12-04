@@ -1,6 +1,6 @@
-﻿import { IUpdateContext } from "./IUpdateContext";
-import { IResources } from "../IResources";
-import { ISize } from "../Primitives/ISize";
+import { IUpdateContext } from './IUpdateContext';
+import { IResources } from '../IResources';
+import { ISize } from '../Primitives/ISize';
 
 export class UpdateContext implements IUpdateContext {
     public resources: IResources;

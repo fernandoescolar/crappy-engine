@@ -1,4 +1,4 @@
-﻿import { FadeAnimation } from "./FadeAnimation";
+import { FadeAnimation } from './FadeAnimation';
 
 export class FadeInAnimation extends FadeAnimation {
 

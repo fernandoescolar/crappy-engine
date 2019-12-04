@@ -1,6 +1,6 @@
-import { Thing } from "./Thing";
-import { IUpdateContext } from "../Utilities/IUpdateContext";
-import { ITransition } from "./Transitions/ITransition";
+import { Thing } from './Thing';
+import { IUpdateContext } from '../Utilities/IUpdateContext';
+import { ITransition } from './Transitions/ITransition';
 
 export class TransitionableThing extends Thing {
     private transitions: ITransition[] = [];
@@ -8,7 +8,7 @@ export class TransitionableThing extends Thing {
     update(context: IUpdateContext): void {
         super.update(context);
 
-        let finishedTransitions: ITransition[] = [];
+        const finishedTransitions: ITransition[] = [];
         this.transitions.forEach(transition => {
             transition.update(this, context);
             if (transition.finished) {
@@ -27,7 +27,7 @@ export class TransitionableThing extends Thing {
     }
 
     protected removeTransition(transition: ITransition): void {
-        let index = this.transitions.indexOf(transition);
+        const index = this.transitions.indexOf(transition);
         if (index >= 0) {
             this.transitions.splice(index, 1);
         }

@@ -1,9 +1,9 @@
-﻿import { IAnimation } from "./IAnimation";
+import { IAnimation } from './IAnimation';
 
-import { IRectangle } from "../Primitives/IRectangle";
-import { IGraphics } from "../Primitives/IGraphics";
+import { IRectangle } from '../Primitives/IRectangle';
+import { IGraphics } from '../Primitives/IGraphics';
 
-import { IUpdateContext } from "../Utilities/IUpdateContext";
+import { IUpdateContext } from '../Utilities/IUpdateContext';
 
 
 export class FadeAnimation implements IAnimation {

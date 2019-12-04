@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "lint": "tslint --project . -c tslint.json",
+    "lint:fix": "tslint --project . -c tslint.json --fix"
   },
   "author": {
     "name": "Fernando Escolar",
@@ -18,5 +20,8 @@
     "rollup-plugin-typescript": "^1.0.1",
     "tslib": "^1.10.0",
     "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "tslint": "^5.20.1"
   }
 }

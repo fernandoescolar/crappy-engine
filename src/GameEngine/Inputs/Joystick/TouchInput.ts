@@ -1,23 +1,22 @@
-﻿import { IJoystickInput } from "./IJoystickInput";
+import { IJoystickInput } from './IJoystickInput';
 
-import { IThing } from "../../Things/IThing";
-import { Thing } from "../../Things/Thing";
-import { IDrawable } from "../../Things/IDrawable";
+import { IThing } from '../../Things/IThing';
+import { Thing } from '../../Things/Thing';
+import { IDrawable } from '../../Things/IDrawable';
 
-import { IPoint } from "../../Primitives/IPoint";
-import { IGraphics } from "../../Primitives/IGraphics";
-import { Point } from "../../Primitives/Point";
-import { Size } from "../../Primitives/Size";
+import { IPoint } from '../../Primitives/IPoint';
+import { IGraphics } from '../../Primitives/IGraphics';
+import { Point } from '../../Primitives/Point';
+import { Size } from '../../Primitives/Size';
 
-import { IUpdateContext } from "../../Utilities/IUpdateContext";
-import { ICamera } from "../../Cameras/ICamera";
+import { IUpdateContext } from '../../Utilities/IUpdateContext';
+import { ICamera } from '../../Cameras/ICamera';
 
 export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInput {
     public up: boolean;
     public down: boolean;
     public left: boolean;
     public rigth: boolean;
-    public onfire: () => void = () => {};
 
     private canvas: HTMLCanvasElement;
     private touchStartEventHandler: (e: any) => void;
@@ -33,7 +32,7 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
     private touches: any;
 
     constructor(canvas: HTMLCanvasElement, joystick: boolean = true) {
-        super("touch-pad");
+        super('touch-pad');
         this.up = false;
         this.down = false;
         this.left = false;
@@ -55,29 +54,30 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
         this.touchMoveEventHandler = (e: Event) => this.onTouchMove(e);
         this.touchEndEventHandler = (e: Event) => this.onTouchEnd(e);
     }
+    public onfire: () => void = () => {};
 
     public start(): void {
         if (window.navigator.msPointerEnabled) {
-            this.canvas.addEventListener("MSPointerDown", this.touchStartEventHandler, false);
-            this.canvas.addEventListener("MSPointerMove", this.touchMoveEventHandler, false);
-            this.canvas.addEventListener("MSPointerUp", this.touchEndEventHandler, false);
+            this.canvas.addEventListener('MSPointerDown', this.touchStartEventHandler, false);
+            this.canvas.addEventListener('MSPointerMove', this.touchMoveEventHandler, false);
+            this.canvas.addEventListener('MSPointerUp', this.touchEndEventHandler, false);
         }
 
-        this.canvas.addEventListener("touchstart", this.touchStartEventHandler, false);
-        this.canvas.addEventListener("touchmove", this.touchMoveEventHandler, false);
-        this.canvas.addEventListener("touchend", this.touchEndEventHandler, false);
+        this.canvas.addEventListener('touchstart', this.touchStartEventHandler, false);
+        this.canvas.addEventListener('touchmove', this.touchMoveEventHandler, false);
+        this.canvas.addEventListener('touchend', this.touchEndEventHandler, false);
     }
 
     public stop(): void {
         if (window.navigator.msPointerEnabled) {
-            this.canvas.removeEventListener("MSPointerDown", this.touchStartEventHandler, false);
-            this.canvas.removeEventListener("MSPointerMove", this.touchMoveEventHandler, false);
-            this.canvas.removeEventListener("MSPointerUp", this.touchEndEventHandler, false);
+            this.canvas.removeEventListener('MSPointerDown', this.touchStartEventHandler, false);
+            this.canvas.removeEventListener('MSPointerMove', this.touchMoveEventHandler, false);
+            this.canvas.removeEventListener('MSPointerUp', this.touchEndEventHandler, false);
         }
 
-        this.canvas.removeEventListener("touchstart", this.touchStartEventHandler, false);
-        this.canvas.removeEventListener("touchmove", this.touchMoveEventHandler, false);
-        this.canvas.removeEventListener("touchend", this.touchEndEventHandler, false);
+        this.canvas.removeEventListener('touchstart', this.touchStartEventHandler, false);
+        this.canvas.removeEventListener('touchmove', this.touchMoveEventHandler, false);
+        this.canvas.removeEventListener('touchend', this.touchEndEventHandler, false);
     }
 
     public update(context: IUpdateContext): void {
@@ -86,16 +86,16 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
         this.left = Math.abs(this.leftVector.x) >= 10 && this.leftVector.x < 0;
         this.rigth = Math.abs(this.leftVector.x) >= 10 && this.leftVector.x > 0;
     }
-    
+
     public draw(graphics: IGraphics, camera: ICamera): void {
-        for (var i: number = 0; i < this.touches.length; i++) {
-            var touch: any = this.touches[i];
+        for (let i: number = 0; i < this.touches.length; i++) {
+            let touch: any = this.touches[i];
             if (touch.identifier === this.leftTouchID) {
-                graphics.drawCircle(this.leftTouchStartPos, 40, 6, "cyan");
-                graphics.drawCircle(this.leftTouchStartPos, 60, 2, "cyan");
-                graphics.drawCircle(this.leftTouchPos, 40, 2, "cyan");
+                graphics.drawCircle(this.leftTouchStartPos, 40, 6, 'cyan');
+                graphics.drawCircle(this.leftTouchStartPos, 60, 2, 'cyan');
+                graphics.drawCircle(this.leftTouchPos, 40, 2, 'cyan');
             } else {
-                graphics.drawCircle(new Point(touch.clientX, touch.clientY), 40, 6, "red");
+                graphics.drawCircle(new Point(touch.clientX, touch.clientY), 40, 6, 'red');
                 // graphics.drawText(new Point(touch.clientX + 30, touch.clientY - 30),
                 //                  "touch id : " + touch.identifier + " x:" + touch.clientX + " y:" + touch.clientY,
                 //                  "white",
@@ -115,7 +115,7 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
 
     private getWindowsPhoneStartTouchEvent(e: any): any {
         if (!this.touches) { this.touches = []; }
-        var event: any = this.getWindowsPhoneTouchEvent(e);
+        let event: any = this.getWindowsPhoneTouchEvent(e);
         if (this.leftTouchID >= 0 && event.clientX < this.halfWidth) {
             this.touches = [];
             this.leftTouchID = -1;
@@ -126,7 +126,7 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
     }
 
     private getWindowsPhoneEndTouchEvent(e: any): any {
-        var event: any = this.getWindowsPhoneTouchEvent(e);
+        let event: any = this.getWindowsPhoneTouchEvent(e);
         this.touches.forEach((touch: any, index: number) => {
             if (touch.identifier === event.identifier) {
                 this.touches.splice(index, 1);
@@ -137,9 +137,9 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
     }
 
     private onTouchStart(e: any): void {
-        var changedTouches: any = e.changedTouches || [this.getWindowsPhoneStartTouchEvent(e)];
-        for (var i: number = 0; i < changedTouches.length; i++) {
-            var touch: any = changedTouches[i];
+        let changedTouches: any = e.changedTouches || [this.getWindowsPhoneStartTouchEvent(e)];
+        for (let i: number = 0; i < changedTouches.length; i++) {
+            let touch: any = changedTouches[i];
             if ((this.leftTouchID < 0) && (touch.clientX < this.halfWidth)) {
                 this.leftTouchID = touch.identifier;
                 this.leftTouchStartPos = new Point(touch.clientX, touch.clientY);
@@ -162,9 +162,9 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
     private onTouchMove(e: any): void {
         e.preventDefault();
 
-        var changedTouches: any = e.changedTouches || [this.getWindowsPhoneTouchEvent(e)];
-        for (var i: number = 0; i < changedTouches.length; i++) {
-            var touch: any = changedTouches[i];
+        let changedTouches: any = e.changedTouches || [this.getWindowsPhoneTouchEvent(e)];
+        for (let i: number = 0; i < changedTouches.length; i++) {
+            let touch: any = changedTouches[i];
             if (this.leftTouchID === touch.identifier) {
                 this.leftTouchPos = new Point(touch.clientX, touch.clientY);
                 this.leftVector = new Point(touch.clientX, touch.clientY);
@@ -178,10 +178,10 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
     }
 
     private onTouchEnd(e: any): void {
-   	    this.touches = e.touches || this.touches;
-        var changedTouches: any = e.changedTouches || [this.getWindowsPhoneEndTouchEvent(e)];
-        for (var i: number = 0; i < changedTouches.length; i++) {
-            var touch: any = changedTouches[i];
+           this.touches = e.touches || this.touches;
+        let changedTouches: any = e.changedTouches || [this.getWindowsPhoneEndTouchEvent(e)];
+        for (let i: number = 0; i < changedTouches.length; i++) {
+            let touch: any = changedTouches[i];
             if (this.leftTouchID === touch.identifier) {
                 this.leftTouchID = -1;
                 this.leftVector = new Point(0, 0);

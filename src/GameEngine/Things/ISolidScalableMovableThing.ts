@@ -1,5 +1,5 @@
-﻿import { ISolidThing } from "./ISolidThing";
-import { IScalableMovableThing } from "./IScalableMovableThing";
+import { ISolidThing } from './ISolidThing';
+import { IScalableMovableThing } from './IScalableMovableThing';
 
 export interface ISolidScalableMovableThing extends ISolidThing, IScalableMovableThing {
 }

@@ -1,8 +1,8 @@
-﻿import { IResources } from "./IResources";
-import { IThing } from "./Things/IThing";
-import { IGraphics } from "./Primitives/IGraphics";
-import { IUpdateContext } from "./Utilities/IUpdateContext";
-import { ICamera } from "./Cameras/ICamera";
+import { IResources } from './IResources';
+import { IThing } from './Things/IThing';
+import { IGraphics } from './Primitives/IGraphics';
+import { IUpdateContext } from './Utilities/IUpdateContext';
+import { ICamera } from './Cameras/ICamera';
 
 export interface IScenario {
     resources: IResources;

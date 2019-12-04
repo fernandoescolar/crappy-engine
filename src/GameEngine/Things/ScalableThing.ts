@@ -1,9 +1,9 @@
-﻿import { IScalableThing } from "./IScalableThing";
-import { ISize } from "../Primitives/ISize";
-import { IPoint } from "../Primitives/IPoint";
-import { TransitionableThing } from "./TransitionableThing";
-import { ScaleTransition } from "./Transitions/ScaleTransition";
-import { ScaleInTimeTransition } from "./Transitions/ScaleInTimeTransition";
+import { IScalableThing } from './IScalableThing';
+import { ISize } from '../Primitives/ISize';
+import { IPoint } from '../Primitives/IPoint';
+import { TransitionableThing } from './TransitionableThing';
+import { ScaleTransition } from './Transitions/ScaleTransition';
+import { ScaleInTimeTransition } from './Transitions/ScaleInTimeTransition';
 
 export class ScalableThing extends TransitionableThing implements IScalableThing {
     scale(size: ISize, pixelsPerSecond: IPoint): void;
