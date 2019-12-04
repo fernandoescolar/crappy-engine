@@ -1,0 +1,22 @@
+{
+  "name": "crappy-fighter-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": {
+    "name": "Fernando Escolar",
+    "email": "f.escolar@hotmail.com",
+    "url": "http://fernandoescolar.github.io/"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "rollup": "^1.27.8",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.2"
+  }
+}
