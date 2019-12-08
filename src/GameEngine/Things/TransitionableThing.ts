@@ -39,7 +39,7 @@ export class TransitionableThing extends Thing {
 
     private clearTranstionsOfSameType(transition: ITransition) {
         this.transitions.some(t => {
-            if (t.type == transition.type) {
+            if (t.type === transition.type) {
                 this.removeTransition(t);
                 return true;
             }

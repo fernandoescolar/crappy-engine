@@ -2,12 +2,16 @@ import * as Engine from '../GameEngine';
 import { StartScene, ShooterGame, ShooterScenario, Player, Enemy, Shot, ExplosionType } from './Shooter';
 import { KeyboardInput } from '../GameEngine/Inputs/Joystick/KeyboardInput';
 import { TouchInput } from '../GameEngine';
-import { IThing } from '../GameEngine/Things/IThing';
+import { Sprite } from '../GameEngine/Sprite';
 
 export class MyShooterGame extends ShooterGame {
     constructor(graphics: Engine.IGraphics, canvas: HTMLCanvasElement) {
         super(graphics);
-        this.initialize(new MyStartScene(new TouchInput(canvas, false), this.camera), new MyShooterScenario(new TouchInput(canvas, true), this.camera));
+
+        const startScene = new MyStartScene(new TouchInput(canvas, false), this.camera);
+        const shooterScenario = new MyShooterScenario(new TouchInput(canvas, true), this.camera);
+
+        this.initialize(startScene, shooterScenario);
     }
 }
 
@@ -22,22 +26,22 @@ class MyStartScene extends StartScene {
     }
 
     createScene(): void {
-        let transitionAnimation = new Engine.FadeInAnimation('transition', '#000000');
-        let transitionSprite = new Engine.Sprite('transition', transitionAnimation);
+        const transitionAnimation = new Engine.FadeInAnimation('transition', '#000000');
+        const transitionSprite = new Engine.Sprite('transition', transitionAnimation);
         transitionSprite.position.x = 0;
         transitionSprite.position.y = 0;
         transitionSprite.size.width = this.width;
         transitionSprite.size.height = this.height;
 
-        let bgAnimation = new Engine.StaticImageAnimation('background', this.resources.images.get('background'));
-        let bgSprite = new Engine.Sprite('background', bgAnimation);
+        const bgAnimation = new Engine.StaticImageAnimation('background', this.resources.images.get('background'));
+        const bgSprite = new Engine.Sprite('background', bgAnimation);
         bgSprite.position.x = 0;
         bgSprite.position.y = 0;
         bgSprite.size.width = this.width;
         bgSprite.size.height = this.height;
 
-        let animation = new Engine.TextAnimation('title', 'Crappy Fighter', '#000000', 90, 'Sketch');
-        let sprite = new Engine.Sprite('title', animation);
+        const animation = new Engine.TextAnimation('title', 'Crappy Fighter', '#000000', 90, 'Sketch');
+        const sprite = new Engine.Sprite('title', animation);
         sprite.size.width = 550;
         sprite.size.height = 100;
         sprite.position.x = (this.width - sprite.size.width) / 2;
@@ -47,14 +51,15 @@ class MyStartScene extends StartScene {
         this.things.push(sprite);
         this.things.push(transitionSprite);
 
-        transitionAnimation.onEnd = () => sprite.move(new Engine.Point((this.width - sprite.size.width) / 2, (this.height - sprite.size.height) / 2),
-                                                      new Engine.Point(120, 120),
-                                                      () => this.ready());
+        const position = new Engine.Point((this.width - sprite.size.width) / 2, (this.height - sprite.size.height) / 2);
+        const pixelsPerSecond = new Engine.Point(120, 120);
+        const onMoved = () => this.ready();
+        transitionAnimation.onEnd = () => sprite.move(position, pixelsPerSecond, onMoved);
     }
 
     ready(): void {
-        let animation = new Engine.TextAnimation('title', 'Touch screen to start', '#000000', 40, 'Sketch');
-        let sprite = new Engine.Sprite('title', animation);
+        const animation = new Engine.TextAnimation('title', 'Touch screen to start', '#000000', 40, 'Sketch');
+        const sprite = new Engine.Sprite('title', animation);
         sprite.size.width = 360;
         sprite.size.height = 100;
         sprite.position.x = (this.width - sprite.size.width) / 2;
@@ -62,7 +67,9 @@ class MyStartScene extends StartScene {
         // sprite.speed = 90;
 
         this.things.push(sprite);
-        sprite.move(new Engine.Point((this.width - sprite.size.width) / 2, (this.height - sprite.size.height) / 2 + 100), new Engine.Point(200, 200));
+        const position = new Engine.Point((this.width - sprite.size.width) / 2, (this.height - sprite.size.height) / 2 + 100);
+        const pixelsPerSecond = new Engine.Point(200, 200);
+        sprite.move(position, pixelsPerSecond);
     }
 
     start(): void {
@@ -77,8 +84,8 @@ class MyStartScene extends StartScene {
     }
 
     startGame(): void {
-        let transitionAnimation = new Engine.FadeOutAnimation('transition', '#000000');
-        let transitionSprite = new Engine.Sprite('transition', transitionAnimation);
+        const transitionAnimation = new Engine.FadeOutAnimation('transition', '#000000');
+        const transitionSprite = new Engine.Sprite('transition', transitionAnimation);
         transitionSprite.position.x = 0;
         transitionSprite.position.y = 0;
         transitionSprite.size.width = this.width;
@@ -88,7 +95,7 @@ class MyStartScene extends StartScene {
         transitionAnimation.onEnd = () => {
             super.startGame();
             setTimeout(() => {
-                let index = this.things.indexOf(transitionSprite);
+                const index = this.things.indexOf(transitionSprite);
                 this.things.splice(index, 1);
             }, 500);
         };
@@ -122,8 +129,8 @@ class MyShooterScenario extends ShooterScenario {
     }
 
     createBackgroundLayer(imgName: string, speed: number): Engine.Sprite {
-        let animation = new Engine.ContinuousImageAnimation(imgName, this.resources.images.get(imgName));
-        let sprite = new Engine.Sprite(imgName, animation);
+        const animation = new Engine.ContinuousImageAnimation(imgName, this.resources.images.get(imgName));
+        const sprite = new Engine.Sprite(imgName, animation);
         sprite.position.x = 0;
         sprite.position.y = 0;
         sprite.size.width = this.width;
@@ -134,15 +141,15 @@ class MyShooterScenario extends ShooterScenario {
     }
 
     createBackground(speed: number): Engine.Sprite {
-        let sprite = this.createBackgroundLayer('background', speed);
+        const sprite = this.createBackgroundLayer('background', speed);
         this.things.push(sprite);
 
         return this.createBackgroundLayer('background-paralax', speed + 20);
     }
 
     createScore(): Engine.TextAnimation {
-        let animation = new Engine.TextAnimation('score', '', '#000000', 30, 'Sketch');
-        let score = new Engine.Sprite('score', animation);
+        const animation = new Engine.TextAnimation('score', '', '#000000', 30, 'Sketch');
+        const score = new Engine.Sprite('score', animation);
         score.position.x = 10;
         score.position.y = 30;
 
@@ -152,8 +159,8 @@ class MyShooterScenario extends ShooterScenario {
     }
 
     createPlayer(x?: number, y?: number): Player {
-        let animation = new Engine.ImageSheetAnimation('player', this.resources.images.get('player'), new Engine.Size(64, 25), true);
-        let player = new Player(this.pad, animation, 3, this.width, this.height);
+        const animation = new Engine.ImageSheetAnimation('player', this.resources.images.get('player'), new Engine.Size(64, 25), true);
+        const player = new Player(this.pad, animation, 3, this.width, this.height);
         player.position.x = x || Math.random() * this.width;
         player.position.y = y || Math.random() * this.height;
         player.size.width = animation.imageSize.width;
@@ -164,18 +171,18 @@ class MyShooterScenario extends ShooterScenario {
     }
 
     createPlayerLive(): Engine.ISprite {
-        let animation = new Engine.StaticImageAnimation('player-life', this.resources.images.get('live'));
-        let sprite = new Engine.Sprite('player-life', animation);
+        const animation = new Engine.StaticImageAnimation('player-life', this.resources.images.get('live'));
+        const sprite = new Engine.Sprite('player-life', animation);
         sprite.size = new Engine.Size(32, 16);
         return sprite;
     }
 
     createEnemy(): Enemy {
-        let id = parseInt((Math.random() * 3).toFixed(0)) + 1;
-        let animation = new Engine.ImageSheetAnimation('enemy', this.resources.images.get('enemy-' + id), new Engine.Size(40, 30));
+        const id = parseInt((Math.random() * 3).toFixed(0)) + 1;
+        const animation = new Engine.ImageSheetAnimation('enemy', this.resources.images.get('enemy-' + id), new Engine.Size(40, 30));
         animation.speed = Math.random() * 50 + 40;
 
-        let sprite = new Enemy(animation, 1);
+        const sprite = new Enemy(animation, 1);
         sprite.size.width = animation.imageSize.width;
         sprite.size.height = animation.imageSize.height;
 
@@ -183,10 +190,10 @@ class MyShooterScenario extends ShooterScenario {
     }
 
     createEnemyShot(): Enemy {
-        let animation = new Engine.ImageSheetAnimation('enemy-shoot', this.resources.images.get('enemy-shot'), new Engine.Size(16, 16));
+        const animation = new Engine.ImageSheetAnimation('enemy-shoot', this.resources.images.get('enemy-shot'), new Engine.Size(16, 16));
         animation.speed = 60;
 
-        let sprite = new Enemy(animation, 3);
+        const sprite = new Enemy(animation, 3);
         sprite.size.width = animation.imageSize.width;
         sprite.size.height = animation.imageSize.height;
 
@@ -197,8 +204,8 @@ class MyShooterScenario extends ShooterScenario {
     }
 
     createShot(): Shot {
-        let animation = new Engine.ImageSheetAnimation('shot', this.resources.images.get('shot'), new Engine.Size(16, 16), true);
-        let shot = new Shot(950, animation);
+        const animation = new Engine.ImageSheetAnimation('shot', this.resources.images.get('shot'), new Engine.Size(16, 16), true);
+        const shot = new Shot(950, animation);
         shot.position.x = this.player.position.x + 60;
         shot.position.y = this.player.position.y + 7;
         shot.size.width = animation.imageSize.width;
@@ -210,9 +217,14 @@ class MyShooterScenario extends ShooterScenario {
     }
 
     createExplosion(explosionType: ExplosionType): Engine.Sprite {
-        let sprite: Engine.Sprite;
+        let sprite: Engine.Sprite = new Sprite('');
+
         if (explosionType === ExplosionType.Player) {
-            let animation = new Engine.ImageSheetAnimation('explosion', this.resources.images.get('explosion-player'), new Engine.Size(16, 16), false);
+            const animation = new Engine.ImageSheetAnimation(
+                'explosion',
+                this.resources.images.get('explosion-player'),
+                new Engine.Size(16, 16), false
+            );
             animation.speed = 50;
             sprite = new Engine.Sprite('explosion', animation);
             sprite.size.width = animation.imageSize.width;
@@ -220,7 +232,12 @@ class MyShooterScenario extends ShooterScenario {
             this.resources.playAudio('touched');
         }
         if (explosionType === ExplosionType.PlayerDestroyed) {
-            let animation = new Engine.ImageSheetAnimation('explosion', this.resources.images.get('explosion-player-destroy'), new Engine.Size(64, 20), false);
+            const animation = new Engine.ImageSheetAnimation(
+                'explosion',
+                this.resources.images.get('explosion-player-destroy'),
+                new Engine.Size(64, 20),
+                false
+            );
             animation.speed = 50;
             sprite = new Engine.Sprite('explosion', animation);
             sprite.size.width = animation.imageSize.width;
@@ -228,7 +245,12 @@ class MyShooterScenario extends ShooterScenario {
             this.resources.playAudio('explosion');
         }
         if (explosionType === ExplosionType.Enemy) {
-            let animation = new Engine.ImageSheetAnimation('explosion', this.resources.images.get('explosion-enemy'), new Engine.Size(16, 16), false);
+            const animation = new Engine.ImageSheetAnimation(
+                'explosion',
+                this.resources.images.get('explosion-enemy'),
+                new Engine.Size(16, 16),
+                false
+            );
             animation.speed = 50;
             sprite = new Engine.Sprite('explosion', animation);
             sprite.size.width = animation.imageSize.width;
@@ -236,7 +258,12 @@ class MyShooterScenario extends ShooterScenario {
             this.resources.playAudio('touched');
         }
         if (explosionType === ExplosionType.EnemyDestroyed) {
-            let animation = new Engine.ImageSheetAnimation('explosion', this.resources.images.get('explosion-enemy-destroy'), new Engine.Size(60, 60), false);
+            const animation = new Engine.ImageSheetAnimation(
+                'explosion',
+                this.resources.images.get('explosion-enemy-destroy'),
+                new Engine.Size(60, 60),
+                false
+            );
             animation.speed = 50;
             sprite = new Engine.Sprite('explosion', animation);
             sprite.size.width = animation.imageSize.width;
@@ -248,8 +275,8 @@ class MyShooterScenario extends ShooterScenario {
     }
 
     createGameover(): Engine.Sprite {
-        let animation = new Engine.TextAnimation('gameover', 'GAME OVER', '#000000', 80, 'Sketch');
-        let sprite = new Engine.Sprite('gameover', animation);
+        const animation = new Engine.TextAnimation('gameover', 'GAME OVER', '#000000', 80, 'Sketch');
+        const sprite = new Engine.Sprite('gameover', animation);
         sprite.size.width = 380;
         sprite.size.height = 80;
         sprite.position.x = (this.width - sprite.size.width) / 2;

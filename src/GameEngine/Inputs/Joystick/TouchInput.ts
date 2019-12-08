@@ -89,7 +89,7 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
 
     public draw(graphics: IGraphics, camera: ICamera): void {
         for (let i: number = 0; i < this.touches.length; i++) {
-            let touch: any = this.touches[i];
+            const touch: any = this.touches[i];
             if (touch.identifier === this.leftTouchID) {
                 graphics.drawCircle(this.leftTouchStartPos, 40, 6, 'cyan');
                 graphics.drawCircle(this.leftTouchStartPos, 60, 2, 'cyan');
@@ -115,7 +115,7 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
 
     private getWindowsPhoneStartTouchEvent(e: any): any {
         if (!this.touches) { this.touches = []; }
-        let event: any = this.getWindowsPhoneTouchEvent(e);
+        const event: any = this.getWindowsPhoneTouchEvent(e);
         if (this.leftTouchID >= 0 && event.clientX < this.halfWidth) {
             this.touches = [];
             this.leftTouchID = -1;
@@ -126,7 +126,7 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
     }
 
     private getWindowsPhoneEndTouchEvent(e: any): any {
-        let event: any = this.getWindowsPhoneTouchEvent(e);
+        const event: any = this.getWindowsPhoneTouchEvent(e);
         this.touches.forEach((touch: any, index: number) => {
             if (touch.identifier === event.identifier) {
                 this.touches.splice(index, 1);
@@ -137,9 +137,9 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
     }
 
     private onTouchStart(e: any): void {
-        let changedTouches: any = e.changedTouches || [this.getWindowsPhoneStartTouchEvent(e)];
+        const changedTouches: any = e.changedTouches || [this.getWindowsPhoneStartTouchEvent(e)];
         for (let i: number = 0; i < changedTouches.length; i++) {
-            let touch: any = changedTouches[i];
+            const touch: any = changedTouches[i];
             if ((this.leftTouchID < 0) && (touch.clientX < this.halfWidth)) {
                 this.leftTouchID = touch.identifier;
                 this.leftTouchStartPos = new Point(touch.clientX, touch.clientY);
@@ -162,9 +162,9 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
     private onTouchMove(e: any): void {
         e.preventDefault();
 
-        let changedTouches: any = e.changedTouches || [this.getWindowsPhoneTouchEvent(e)];
+        const changedTouches: any = e.changedTouches || [this.getWindowsPhoneTouchEvent(e)];
         for (let i: number = 0; i < changedTouches.length; i++) {
-            let touch: any = changedTouches[i];
+            const touch: any = changedTouches[i];
             if (this.leftTouchID === touch.identifier) {
                 this.leftTouchPos = new Point(touch.clientX, touch.clientY);
                 this.leftVector = new Point(touch.clientX, touch.clientY);
@@ -178,10 +178,10 @@ export class TouchInput extends Thing implements IThing, IDrawable, IJoystickInp
     }
 
     private onTouchEnd(e: any): void {
-           this.touches = e.touches || this.touches;
-        let changedTouches: any = e.changedTouches || [this.getWindowsPhoneEndTouchEvent(e)];
+        this.touches = e.touches || this.touches;
+        const changedTouches: any = e.changedTouches || [this.getWindowsPhoneEndTouchEvent(e)];
         for (let i: number = 0; i < changedTouches.length; i++) {
-            let touch: any = changedTouches[i];
+            const touch: any = changedTouches[i];
             if (this.leftTouchID === touch.identifier) {
                 this.leftTouchID = -1;
                 this.leftVector = new Point(0, 0);

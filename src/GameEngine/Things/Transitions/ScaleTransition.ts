@@ -20,14 +20,14 @@ export class ScaleTransition implements ITransition {
     }
 
     update(thing: IThing, context: IUpdateContext): void {
-        let delta: IPoint = Utilities.calculateDelta(context.ticks, this.pixelsPerSecond);
+        const delta: IPoint = Utilities.calculateDelta(context.ticks, this.pixelsPerSecond);
         if (this.targetSize) {
             Utilities.scaleThing(thing, this.targetSize, delta);
             if (this.targetSize.width === thing.size.width && this.targetSize.height === thing.size.height) {
-                this.targetSize = null;
+                this.targetSize = null as any;
                 if (this.callback) {
                     this.callback();
-                    this.callback = null;
+                    this.callback = null as any;
                 }
 
                 this.hasFinished = true;

@@ -9,7 +9,7 @@ export class KeyboardInput implements IJoystickInput {
     public left: boolean;
     public rigth: boolean;
     public space: boolean;
-    public onfire: () => void;
+    public onfire!: () => void;
 
     constructor() {
         this.keyDownEventHandler = (ev: KeyboardEvent) => { this.onKeyDown(ev); };

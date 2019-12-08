@@ -12,7 +12,7 @@ export class FadeAnimation implements IAnimation {
     public frameCount: number;
     public speed: number;
 
-    public onEnd: () => void;
+    public onEnd!: () => void;
 
     private alpha: number;
     private ticks: number;

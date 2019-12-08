@@ -67,7 +67,7 @@ export class Camera extends ScalableMovableThing implements ICamera {
         for (let i: number = 0; i < drawables.length; i++) {
             if (Utilities.isVisibleInCamera(this, drawables[i])) {
                 if (drawables[i].draw) {
-                    let drawable: IDrawable = <IDrawable>drawables[i];
+                    const drawable: IDrawable = <IDrawable>drawables[i];
                     drawable.draw(graphics, this);
                 }
             }

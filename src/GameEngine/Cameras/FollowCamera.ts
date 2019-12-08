@@ -10,7 +10,7 @@ import { IUpdateContext } from '../Utilities/IUpdateContext';
 
 export class FollowCamera extends Camera implements ICamera {
 
-    public thingToFollow: IThing;
+    public thingToFollow!: IThing;
 
     constructor(id: string, position: IPoint, size: ISize, thingToFollow?: IThing);
     constructor(id: string, position: IPoint, size: ISize, vpPosition?: IPoint, vpSize?: ISize, thingToFollow?: IThing);
@@ -25,7 +25,7 @@ export class FollowCamera extends Camera implements ICamera {
     }
 
     public unfollow() {
-        this.thingToFollow = null;
+        this.thingToFollow = null as any;
     }
 
     public update(context: IUpdateContext): void {

@@ -1,8 +1,8 @@
 import { INamedCollection } from './INamedCollection';
 
 export class NamedCollection<T> implements INamedCollection<T> {
-    private items: { [key: string]: T };
-    private count: number;
+    private items!: { [key: string]: T };
+    private count!: number;
 
     constructor() {
         this.clear();
@@ -45,10 +45,10 @@ export class NamedCollection<T> implements INamedCollection<T> {
     }
 
     public forEach(callback: (key: string, value: T) => any): void {
-        for (let name in this.items) {
+        for (const name in this.items) {
             if (this.items.hasOwnProperty(name)) {
-                let element: T = this.items[name];
-                let ret: any = callback(name, element);
+                const element: T = this.items[name];
+                const ret: any = callback(name, element);
                 if (ret === false) {
                     return;
                 }

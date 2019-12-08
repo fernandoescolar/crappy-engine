@@ -14,7 +14,7 @@ export class Graphics implements IGraphics {
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
-        this.context = canvas.getContext('2d');
+        this.context = canvas.getContext('2d') as CanvasRenderingContext2D;
     }
 
     public get screenSize(): ISize {
@@ -309,7 +309,7 @@ export class Graphics implements IGraphics {
     public drawCenteredText(r: IRectangle, text: string, color: string, fontSize: number, font: string): void {
         r = this.fastRoundRect(r);
 
-        let measure: TextMetrics = this.context.measureText(text);
+        const measure: TextMetrics = this.context.measureText(text);
         this.save();
         this.context.fillStyle = color;
         this.context.font = fontSize + 'px ' + font;
@@ -329,14 +329,14 @@ export class Graphics implements IGraphics {
     }
 
     private fastRoundPoint(r: IPoint): IPoint {
-        if (!this.usingFastRender) r;
+        if (!this.usingFastRender) return r;
         r.x = this.fastRound(r.x);
         r.y = this.fastRound(r.y);
 
         return r;
     }
 
-    private fastRound(number: number): number {
-        return ~~(0.5 + number);
+    private fastRound(num: number): number {
+        return ~~(0.5 + num);
     }
 }

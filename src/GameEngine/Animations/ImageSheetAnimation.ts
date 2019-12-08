@@ -27,8 +27,8 @@ export class ImageSheetAnimation extends StaticImageAnimation implements IAnimat
         this.ticks = 0;
         this.hasEnd = false;
 
-        let columns: number = image.width / frameSize.width;
-        let rows: number = image.height / frameSize.height;
+        const columns: number = image.width / frameSize.width;
+        const rows: number = image.height / frameSize.height;
         this.frameCount = (typeof frameIndexes === 'undefined') ? columns * rows : frameIndexes.length;
         this.imageSize = frameSize;
         this.initializeFrames(columns, rows, frameIndexes);
@@ -50,7 +50,7 @@ export class ImageSheetAnimation extends StaticImageAnimation implements IAnimat
     }
 
     internalDraw(graphics: IGraphics, image: HTMLImageElement, rect: IRectangle): void {
-        let frameRect: IRectangle = this.frames[this.frameIndex];
+        const frameRect: IRectangle = this.frames[this.frameIndex];
 
         graphics.drawImage(
             image,
@@ -72,8 +72,8 @@ export class ImageSheetAnimation extends StaticImageAnimation implements IAnimat
     }
 
     addFrame(index: number, columns: number, rows: number): void {
-        let row: number = Math.ceil(index / columns);
-        let column: number = Math.ceil(index % columns);
+        const row: number = Math.ceil(index / columns);
+        const column: number = Math.ceil(index % columns);
 
         this.frames.push(new Rectangle(new Point(column * this.imageSize.width, row * this.imageSize.height), this.imageSize));
     }

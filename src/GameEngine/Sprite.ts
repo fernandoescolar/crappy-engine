@@ -21,8 +21,8 @@ export class Sprite extends SolidScalableMovableThing implements ISprite {
 
     public animations: IAnimationCollection;
 
-    private currentKey: string;
-    private screenRect: IRectangle;
+    private currentKey!: string;
+    private screenRect!: IRectangle;
 
     constructor(id: string, ...animations: Array<IAnimation>) {
         super(id);
@@ -55,19 +55,19 @@ export class Sprite extends SolidScalableMovableThing implements ISprite {
     update(context: IUpdateContext): void {
         super.update(context);
 
-        let currentAnimation: IAnimation = this.currentAnimation;
+        const currentAnimation: IAnimation = this.currentAnimation;
         if (currentAnimation) {
             currentAnimation.update(context);
         }
     }
 
     draw(graphics: IGraphics, camera: ICamera): void {
-        let currentAnimation: IAnimation = this.currentAnimation;
+        const currentAnimation: IAnimation = this.currentAnimation;
         if (currentAnimation) {
-            let x: number = (this.position.x - camera.position.x) * camera.zoom + camera.screenPosition.x;
-            let y: number = (this.position.y - camera.position.y) * camera.zoom + camera.screenPosition.y;
-            let w: number = this.size.width * camera.zoom;
-            let h: number = this.size.height * camera.zoom;
+            const x: number = (this.position.x - camera.position.x) * camera.zoom + camera.screenPosition.x;
+            const y: number = (this.position.y - camera.position.y) * camera.zoom + camera.screenPosition.y;
+            const w: number = this.size.width * camera.zoom;
+            const h: number = this.size.height * camera.zoom;
 
             this.screenRect = new Rectangle(new Point(x, y), new Size(w, h));
             currentAnimation.draw(graphics, this.screenRect);

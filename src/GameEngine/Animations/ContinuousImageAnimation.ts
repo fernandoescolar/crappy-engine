@@ -20,14 +20,14 @@ export class ContinuousImageAnimation extends StaticImageAnimation implements IA
         super(id, image);
         this.speed = 50;
         this.offset = 0;
-        let w: number = image.width;
-        let h: number = image.height;
+        const w: number = image.width;
+        const h: number = image.height;
         this.imageSize = new Size(w, h);
     }
 
     public update(context: IUpdateContext): void {
         super.update(context);
-        let delta: number = context.ticks / (100 - this.speed);
+        const delta: number = context.ticks / (100 - this.speed);
         this.offset += delta;
         if (this.offset > this.imageSize.width) {
             this.offset = 0;
@@ -36,8 +36,8 @@ export class ContinuousImageAnimation extends StaticImageAnimation implements IA
 
     internalDraw(graphics: IGraphics, image: HTMLImageElement, rect: IRectangle): void {
         if ((this.imageSize.width - this.offset) < rect.width) {
-            let offsetA: number = this.imageSize.width - this.offset;
-            let offsetB: number = this.imageSize.width - offsetA;
+            const offsetA: number = this.imageSize.width - this.offset;
+            const offsetB: number = this.imageSize.width - offsetA;
             graphics.drawImage(
                 image,
                 new Rectangle(new Point(this.offset, 0), new Size(offsetA, rect.height)),

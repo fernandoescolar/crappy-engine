@@ -59,15 +59,15 @@ export class ShooterScenario extends Engine.Scenario {
 
     protected get width(): number { return this.cameras[0].size.width; }
     protected get height(): number { return this.cameras[0].size.height; }
-    private scoreText: Engine.TextAnimation;
-    private score: number;
+    private scoreText!: Engine.TextAnimation;
+    private score!: number;
 
-    public player: Player;
-    public playerLive: Array<Engine.ISprite>;
-    public shots: Array<Shot>;
-    public enemies: Array<Enemy>;
-    public explosions: Array<Engine.ISprite>;
-    public enemyCounter: number;
+    public player!: Player;
+    public playerLive!: Array<Engine.ISprite>;
+    public shots!: Array<Shot>;
+    public enemies!: Array<Enemy>;
+    public explosions!: Array<Engine.ISprite>;
+    public enemyCounter!: number;
 
     constructor(public pad: Engine.IJoystickInput, camera: Engine.ICamera) {
         super('shooter', camera);
@@ -88,7 +88,7 @@ export class ShooterScenario extends Engine.Scenario {
         this.enemyCounter = 0;
         this.score = 0;
 
-        let bg = this.createBackground(30);
+        const bg = this.createBackground(30);
         if (bg) this.things.push(bg);
 
         this.scoreText = this.createScore();
@@ -96,7 +96,7 @@ export class ShooterScenario extends Engine.Scenario {
         if (this.player) this.things.push(this.player);
 
         for (let i = 0; i < this.player.livePoints; i++) {
-            let liveBlock = this.createPlayerLive();
+            const liveBlock = this.createPlayerLive();
             liveBlock.position.x = 10 + liveBlock.size.width * i;
             liveBlock.position.y = this.height - liveBlock.size.height - 10;
 
@@ -119,44 +119,44 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     createBackground(speed: number): Engine.Sprite {
-        return null;
+        return null as any; // todo
     }
 
     createScore(): Engine.TextAnimation {
-        return null;
+        return null as any; // todo
     }
 
     createPlayer(x?: number, y?: number): Player {
-        return null;
+        return null as any; // todo
     }
 
     createPlayerLive(): Engine.ISprite {
-        return null;
+        return null as any; // todo
     }
 
     createEnemy(): Enemy {
-        return null;
+        return null as any; // todo
     }
 
     createEnemyShot(): Enemy {
-        return null;
+        return null as any; // todo
     }
 
     createShot(): Shot {
-        return null;
+        return null as any; // todo
     }
 
     createExplosion(explosionType: ExplosionType): Engine.Sprite {
-        return null;
+        return null as any; // todo
     }
 
     createGameover(): Engine.Sprite {
-        return null;
+        return null as any; // todo
     }
 
     addEnemy(): void {
         setTimeout(() => { this.addEnemy(); }, Math.random() * 3000);
-        let enemy = this.createEnemy();
+        const enemy = this.createEnemy();
         if (enemy) {
             enemy.position.x = this.width + enemy.size.width;
             enemy.position.y = Math.random() * (this.height - enemy.size.height);
@@ -169,7 +169,7 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     enemyShot(enemy: Enemy): void {
-        let enemyShot = this.createEnemyShot();
+        const enemyShot = this.createEnemyShot();
         enemyShot.position.x = enemy.position.x;
         enemyShot.position.y = enemy.position.y;
         // enemyShot.speed = 95;
@@ -180,7 +180,7 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     shoot(): void {
-        let shot = this.createShot();
+        const shot = this.createShot();
         if (shot) {
             this.shots.push(shot);
             this.things.push(shot);
@@ -190,7 +190,7 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     explote(explosionType: ExplosionType, x: number, y: number) {
-        let sprite = this.createExplosion(explosionType);
+        const sprite = this.createExplosion(explosionType);
         if (sprite) {
             sprite.position.x = x;
             sprite.position.y = y;
@@ -207,9 +207,11 @@ export class ShooterScenario extends Engine.Scenario {
         this.pad.stop();
 
         setTimeout(() => {
-            let sprite = this.createGameover();
+            const sprite = this.createGameover();
             sprite.position.y = this.height;
-            sprite.move(new Engine.Point((this.width - sprite.size.width) / 2, (this.height - sprite.size.height) / 2), new Engine.Point(90, 90));
+            const position = new Engine.Point((this.width - sprite.size.width) / 2, (this.height - sprite.size.height) / 2);
+            const pixelsPerSecond = new Engine.Point(90, 90);
+            sprite.move(position, pixelsPerSecond);
             // sprite.speed = 90;
             this.things.push(sprite);
         }, 400);
@@ -218,7 +220,7 @@ export class ShooterScenario extends Engine.Scenario {
     }
 
     deleteThing(obj: Engine.IThing) {
-        let index: number = this.things.indexOf(obj);
+        const index: number = this.things.indexOf(obj);
         this.things.splice(index, 1);
     }
 
@@ -269,8 +271,8 @@ export class ShooterScenario extends Engine.Scenario {
 
     updateExplosions(): void {
         this.explosions.forEach((explosion, index) => {
-            let sprite = <Engine.Sprite>explosion;
-            let animation = <Engine.ImageSheetAnimation>sprite.currentAnimation;
+            const sprite = <Engine.Sprite>explosion;
+            const animation = <Engine.ImageSheetAnimation>sprite.currentAnimation;
             if (animation.hasEnd) {
                 this.deleteExplosion(explosion, index);
             }
@@ -327,7 +329,13 @@ export class ShooterScenario extends Engine.Scenario {
 export class Player extends Engine.Sprite {
     private speed: Engine.IPoint;
 
-    constructor(private pad: Engine.IJoystickInput, animation: Engine.IAnimation, public livePoints: number, private maxWidth: number, private maxHeight: number) {
+    constructor(
+        private pad: Engine.IJoystickInput,
+        animation: Engine.IAnimation,
+        public livePoints: number,
+        private maxWidth: number,
+        private maxHeight: number
+    ) {
         super('player', animation);
         this.speed = new Engine.Point(200, 200);
     }
@@ -356,8 +364,8 @@ export class Player extends Engine.Sprite {
             x -= 30;
         }
 
-        let w = this.maxWidth - this.size.width;
-        let h = this.maxHeight - this.size.height;
+        const w = this.maxWidth - this.size.width;
+        const h = this.maxHeight - this.size.height;
 
         if (x < 0) x = 0;
         if (y < 0) y = 0;
