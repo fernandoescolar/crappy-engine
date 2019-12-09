@@ -1,6 +1,6 @@
-﻿import { IPoint } from "./IPoint";
-import { ISize } from "./ISize";
-import { IRectangle } from "./IRectangle";
+import { IPoint } from './IPoint';
+import { ISize } from './ISize';
+import { IRectangle } from './IRectangle';
 
 export class Rectangle implements IRectangle {
     public x: number;

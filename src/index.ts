@@ -1,10 +1,10 @@
-import { MyShooterGame } from "./CrappyFighter/MyShooter";
-import { Graphics } from "./GameEngine";
+import { MyShooterGame } from './CrappyFighter/MyShooter';
+import { Graphics } from './GameEngine';
 
 window.onload = () => {
-    let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("game");
-    let graphics = new Graphics(canvas);
-    let shooterGame = new MyShooterGame(graphics, canvas);
+    const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('game');
+    const graphics = new Graphics(canvas);
+    const shooterGame = new MyShooterGame(graphics, canvas);
 
     shooterGame.start(60);
 };

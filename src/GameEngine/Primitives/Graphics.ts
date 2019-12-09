@@ -1,11 +1,11 @@
-﻿import { IPoint } from "./IPoint";
-import { ISize } from "./ISize";
-import { IRectangle } from "./IRectangle";
-import { IGraphics } from "./IGraphics";
+import { IPoint } from './IPoint';
+import { ISize } from './ISize';
+import { IRectangle } from './IRectangle';
+import { IGraphics } from './IGraphics';
 
-import { Point } from "./Point";
-import { Size } from "./Size";
-import { Rectangle } from "./Rectangle";
+import { Point } from './Point';
+import { Size } from './Size';
+import { Rectangle } from './Rectangle';
 
 export class Graphics implements IGraphics {
     private canvas: HTMLCanvasElement;
@@ -14,10 +14,10 @@ export class Graphics implements IGraphics {
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
-        this.context = canvas.getContext("2d");
+        this.context = canvas.getContext('2d') as CanvasRenderingContext2D;
     }
 
-    public get screenSize(): ISize{
+    public get screenSize(): ISize {
         return new Size(this.canvas.width, this.canvas.height);
     }
 
@@ -49,12 +49,12 @@ export class Graphics implements IGraphics {
     public drawImage(image: HTMLImageElement, canvasRect: IRectangle): void;
     public drawImage(image: HTMLImageElement, offsetRect: IRectangle, canvasRect: IRectangle): void;
     public drawImage(image: HTMLImageElement, rect: IRectangle, canvasRect?: IRectangle): void {
-        var or: IRectangle = canvasRect ? rect : new Rectangle(new Point(0, 0), new Size(image.width, image.height));
-        var cr: IRectangle = canvasRect || rect;
+        let or: IRectangle = canvasRect ? rect : new Rectangle(new Point(0, 0), new Size(image.width, image.height));
+        let cr: IRectangle = canvasRect || rect;
         or = this.fastRoundRect(or);
         cr = this.fastRoundRect(cr);
         this.context.drawImage(image, or.x, or.y, or.width, or.height, cr.x, cr.y, cr.width, cr.height);
-    };
+    }
 
     public drawLine(p1: IPoint, p2: IPoint, width: number, color: string): void {
         p1 = this.fastRoundPoint(p1);
@@ -73,7 +73,7 @@ export class Graphics implements IGraphics {
 
     public drawFullPath(backColor: string, lineWidth: number, lineColor: string, points: IPoint[]): void {
         let moved = false;
-        
+
         this.save();
         this.context.beginPath();
         this.context.fillStyle = backColor;
@@ -118,7 +118,7 @@ export class Graphics implements IGraphics {
 
     public drawPath(width: number, color: string, points: IPoint[]): void {
         let moved = false;
-        
+
         this.save();
         this.context.beginPath();
         this.context.lineWidth = width;
@@ -140,13 +140,13 @@ export class Graphics implements IGraphics {
 
     public drawNeonPath(width: number, color: string, points: IPoint[]): void {
         let moved = false;
-        
+
         this.save();
         this.context.beginPath();
         this.context.lineWidth = width;
         this.context.strokeStyle = color;
         this.context.shadowBlur = 20;
-        this.context.shadowColor = "white";
+        this.context.shadowColor = 'white';
         points.forEach(p => {
             p = this.fastRoundPoint(p);
             if (moved) {
@@ -178,7 +178,7 @@ export class Graphics implements IGraphics {
         // this may be slower:
         // this.drawFillRect(r, backColor);
         // this.drawStrokeRect(r, lineWidth, lineWidth);
-    };
+    }
 
     public drawFillRect(r: IRectangle, color: string): void {
         r = this.fastRoundRect(r);
@@ -189,7 +189,7 @@ export class Graphics implements IGraphics {
         this.context.fillRect(r.x, r.y, r.width, r.height);
         this.context.closePath();
         this.restore();
-    };
+    }
 
     public drawRect(r: IRectangle, width: number, color: string): void {
         r = this.fastRoundRect(r);
@@ -202,7 +202,7 @@ export class Graphics implements IGraphics {
         this.context.stroke();
         this.context.closePath();
         this.restore();
-    };
+    }
 
     public drawFullTriangle(p1: IPoint, p2: IPoint, p3: IPoint, backColor: string, lineWidth: number, lineColor: string): void {
         p1 = this.fastRoundPoint(p1);
@@ -301,21 +301,21 @@ export class Graphics implements IGraphics {
 
         this.save();
         this.context.fillStyle = color;
-        this.context.font = fontSize + "px " + font;
+        this.context.font = fontSize + 'px ' + font;
         this.context.fillText(text, p.x, p.y);
         this.restore();
-    };
+    }
 
     public drawCenteredText(r: IRectangle, text: string, color: string, fontSize: number, font: string): void {
         r = this.fastRoundRect(r);
 
-        var measure: TextMetrics = this.context.measureText(text);
+        const measure: TextMetrics = this.context.measureText(text);
         this.save();
         this.context.fillStyle = color;
-        this.context.font = fontSize + "px " + font;
+        this.context.font = fontSize + 'px ' + font;
         this.context.fillText(text, r.x + (r.width - measure.width) / 2, r.y + (r.height + fontSize / 2) / 2);
         this.restore();
-    };
+    }
 
 
     private fastRoundRect(r: IRectangle): IRectangle {
@@ -329,14 +329,14 @@ export class Graphics implements IGraphics {
     }
 
     private fastRoundPoint(r: IPoint): IPoint {
-        if (!this.usingFastRender) r;
+        if (!this.usingFastRender) return r;
         r.x = this.fastRound(r.x);
         r.y = this.fastRound(r.y);
 
         return r;
     }
 
-    private fastRound(number: number): number {
-        return ~~(0.5 + number);
+    private fastRound(num: number): number {
+        return ~~(0.5 + num);
     }
 }

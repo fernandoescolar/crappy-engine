@@ -1,7 +1,7 @@
-﻿import { IAnimation } from "./IAnimation";
-import { IRectangle } from "../Primitives/IRectangle";
-import { IGraphics } from "../Primitives/IGraphics";
-import { IUpdateContext } from "../Utilities/IUpdateContext";
+import { IAnimation } from './IAnimation';
+import { IRectangle } from '../Primitives/IRectangle';
+import { IGraphics } from '../Primitives/IGraphics';
+import { IUpdateContext } from '../Utilities/IUpdateContext';
 
 export class StaticColorAnimation implements IAnimation {
     public id: string;

@@ -1,4 +1,4 @@
-﻿import { ISize } from "./ISize";
+import { ISize } from './ISize';
 
 export class Size implements ISize {
     public width: number;

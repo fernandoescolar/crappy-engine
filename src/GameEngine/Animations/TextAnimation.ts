@@ -1,9 +1,9 @@
-﻿import { IAnimation } from "./IAnimation";
+import { IAnimation } from './IAnimation';
 
-import { IRectangle } from "../Primitives/IRectangle";
-import { IGraphics } from "../Primitives/IGraphics";
+import { IRectangle } from '../Primitives/IRectangle';
+import { IGraphics } from '../Primitives/IGraphics';
 
-import { IUpdateContext } from "../Utilities/IUpdateContext";
+import { IUpdateContext } from '../Utilities/IUpdateContext';
 
 export class TextAnimation implements IAnimation {
     public id: string;
@@ -20,7 +20,7 @@ export class TextAnimation implements IAnimation {
         this.frameIndex = 0;
         this.text = text;
         this.fontSize = fontSize || 10;
-        this.font = font || "Arial";
+        this.font = font || 'Arial';
         this.color = color;
     }
 

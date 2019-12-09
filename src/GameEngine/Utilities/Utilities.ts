@@ -1,14 +1,14 @@
-﻿import { ISize } from "../Primitives/ISize";
-import { IPoint } from "../Primitives/IPoint";
-import { Point } from "../Primitives/Point";
+import { ISize } from '../Primitives/ISize';
+import { IPoint } from '../Primitives/IPoint';
+import { Point } from '../Primitives/Point';
 
-import { IThing } from "../Things/IThing";
-import { IMovableThing } from "../Things/IMovableThing";
-import { IScalableThing } from "../Things/IScalableThing";
+import { IThing } from '../Things/IThing';
+import { IMovableThing } from '../Things/IMovableThing';
+import { IScalableThing } from '../Things/IScalableThing';
 
-import { ICamera } from "../Cameras/ICamera";
+import { ICamera } from '../Cameras/ICamera';
 
-import { Direction } from "./Direction";
+import { Direction } from './Direction';
 
 export class Utilities {
     static collisionDetection(a: IThing, b: IThing): boolean {
@@ -31,15 +31,15 @@ export class Utilities {
     }
 
     static collisionDirection(a: IThing, b: IThing): Direction {
-        var aBottom: number = a.position.y + a.size.height;
-        var bBottom: number = b.position.y + b.size.height;
-        var aRight: number = a.position.x + a.size.width;
-        var bRight: number = b.position.x + b.size.width;
+        const aBottom: number = a.position.y + a.size.height;
+        const bBottom: number = b.position.y + b.size.height;
+        const aRight: number = a.position.x + a.size.width;
+        const bRight: number = b.position.x + b.size.width;
 
-        var bCollision: number = bBottom - a.position.y;
-        var tCollision: number = aBottom - b.position.y;
-        var lCollision: number = aRight - b.position.x;
-        var rCollision: number = bRight - a.position.x;
+        const bCollision: number = bBottom - a.position.y;
+        const tCollision: number = aBottom - b.position.y;
+        const lCollision: number = aRight - b.position.x;
+        const rCollision: number = bRight - a.position.x;
 
         if (tCollision < bCollision && tCollision < lCollision && tCollision < rCollision) {
             return Direction.Up;
@@ -84,25 +84,25 @@ export class Utilities {
     }
 
     static scaleThing(obj: IThing, target: ISize, delta: IPoint): void {
-        var width = Utilities.calculateStep(obj.size.width, target.width, delta.x);
-        var height = Utilities.calculateStep(obj.size.height, target.height, delta.y);
-        //var deltaW = (width - obj.size.width) / 2;
-        //var deltaH = (height - obj.size.height) / 2;
+        const width = Utilities.calculateStep(obj.size.width, target.width, delta.x);
+        const height = Utilities.calculateStep(obj.size.height, target.height, delta.y);
+        // var deltaW = (width - obj.size.width) / 2;
+        // var deltaH = (height - obj.size.height) / 2;
         obj.size.width = width;
         obj.size.height = height;
-        //obj.position.x = obj.position.x - deltaW;
-        //obj.position.y = obj.position.y - deltaH;
+        // obj.position.x = obj.position.x - deltaW;
+        // obj.position.y = obj.position.y - deltaH;
     }
 
     static calculatePointPixelsPerSecond(pointA: IPoint, pointB: IPoint, milliseconds: number): IPoint {
-        let x = (pointB.x - pointA.x) / milliseconds * 1000;
-        let y = (pointB.y - pointA.y) / milliseconds * 1000;
+        const x = (pointB.x - pointA.x) / milliseconds * 1000;
+        const y = (pointB.y - pointA.y) / milliseconds * 1000;
         return new Point(Math.abs(x), Math.abs(y));
     }
 
     static calculateSizePixelsPerSecond(sizeA: ISize, sizeB: ISize, milliseconds: number): IPoint {
-        let x = (sizeB.width - sizeA.width) / milliseconds * 1000;
-        let y = (sizeB.height - sizeA.height) / milliseconds * 1000;
+        const x = (sizeB.width - sizeA.width) / milliseconds * 1000;
+        const y = (sizeB.height - sizeA.height) / milliseconds * 1000;
         return new Point(Math.abs(x), Math.abs(y));
     }
 }

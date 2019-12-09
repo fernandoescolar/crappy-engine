@@ -1,9 +1,9 @@
-﻿import { IAnimation } from "./IAnimation";
+import { IAnimation } from './IAnimation';
 
-import { IRectangle } from "../Primitives/IRectangle";
-import { IGraphics } from "../Primitives/IGraphics";
+import { IRectangle } from '../Primitives/IRectangle';
+import { IGraphics } from '../Primitives/IGraphics';
 
-import { IUpdateContext } from "../Utilities/IUpdateContext";
+import { IUpdateContext } from '../Utilities/IUpdateContext';
 
 
 export class FadeAnimation implements IAnimation {
@@ -12,7 +12,7 @@ export class FadeAnimation implements IAnimation {
     public frameCount: number;
     public speed: number;
 
-    public onEnd: () => void;
+    public onEnd!: () => void;
 
     private alpha: number;
     private ticks: number;

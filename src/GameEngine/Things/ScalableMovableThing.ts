@@ -1,11 +1,11 @@
-﻿import { IScalableMovableThing } from "./IScalableMovableThing";
-import { IPoint } from "../Primitives/IPoint";
-import { ISize } from "../Primitives/ISize";
-import { TransitionableThing } from "./TransitionableThing";
-import { MoveTransition } from "./Transitions/MoveTransition";
-import { MoveInTimeTransition } from "./Transitions/MoveInTimeTransition";
-import { ScaleTransition } from "./Transitions/ScaleTransition";
-import { ScaleInTimeTransition } from "./Transitions/ScaleInTimeTransition";
+import { IScalableMovableThing } from './IScalableMovableThing';
+import { IPoint } from '../Primitives/IPoint';
+import { ISize } from '../Primitives/ISize';
+import { TransitionableThing } from './TransitionableThing';
+import { MoveTransition } from './Transitions/MoveTransition';
+import { MoveInTimeTransition } from './Transitions/MoveInTimeTransition';
+import { ScaleTransition } from './Transitions/ScaleTransition';
+import { ScaleInTimeTransition } from './Transitions/ScaleInTimeTransition';
 
 export class ScalableMovableThing extends TransitionableThing implements IScalableMovableThing {
     move(position: IPoint, pixelsPerSecond: IPoint): void;
@@ -13,7 +13,7 @@ export class ScalableMovableThing extends TransitionableThing implements IScalab
     move(position: any, pixelsPerSecond: any, onMoved?: any) {
         this.addTransition(new MoveTransition(position, pixelsPerSecond, onMoved));
     }
-    
+
     moveInTime(position: IPoint, milliseconds: number): void;
     moveInTime(position: IPoint, milliseconds: number, onMoved: () => void): void;
     moveInTime(position: any, milliseconds: any, onMoved?: any) {
@@ -31,5 +31,5 @@ export class ScalableMovableThing extends TransitionableThing implements IScalab
     scaleInTime(size: any, milliseconds: any, onScaled?: any) {
         this.addTransition(new ScaleInTimeTransition(this, size, milliseconds, onScaled));
     }
-    
+
 }

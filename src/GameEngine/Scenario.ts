@@ -1,11 +1,11 @@
-﻿import { IScenario } from "./IScenario";
-import { IResources } from "./IResources";
-import { Resources } from "./Resources";
+import { IScenario } from './IScenario';
+import { IResources } from './IResources';
+import { Resources } from './Resources';
 
-import { ICamera } from "./Cameras/ICamera";
-import { IThing } from "./Things/IThing";
-import { IUpdateContext } from "./Utilities/IUpdateContext";
-import { IGraphics } from "./Primitives/IGraphics";
+import { ICamera } from './Cameras/ICamera';
+import { IThing } from './Things/IThing';
+import { IUpdateContext } from './Utilities/IUpdateContext';
+import { IGraphics } from './Primitives/IGraphics';
 
 export class Scenario implements IScenario {
     public id: string;

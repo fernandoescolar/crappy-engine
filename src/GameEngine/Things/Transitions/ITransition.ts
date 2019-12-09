@@ -1,5 +1,5 @@
-import { IThing } from "../IThing";
-import { IUpdateContext } from "../../Utilities/IUpdateContext";
+import { IThing } from '../IThing';
+import { IUpdateContext } from '../../Utilities/IUpdateContext';
 
 export interface ITransition {
     readonly type: string;

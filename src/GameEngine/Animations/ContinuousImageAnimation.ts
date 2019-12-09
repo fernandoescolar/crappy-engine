@@ -1,14 +1,14 @@
-﻿import { IAnimation } from "./IAnimation";
-import { StaticImageAnimation } from "./StaticImageAnimation";
+import { IAnimation } from './IAnimation';
+import { StaticImageAnimation } from './StaticImageAnimation';
 
-import { ISize } from "../Primitives/ISize";
-import { IRectangle } from "../Primitives/IRectangle";
-import { IGraphics } from "../Primitives/IGraphics";
-import { Size } from "../Primitives/Size";
-import { Point } from "../Primitives/Point";
-import { Rectangle } from "../Primitives/Rectangle";
+import { ISize } from '../Primitives/ISize';
+import { IRectangle } from '../Primitives/IRectangle';
+import { IGraphics } from '../Primitives/IGraphics';
+import { Size } from '../Primitives/Size';
+import { Point } from '../Primitives/Point';
+import { Rectangle } from '../Primitives/Rectangle';
 
-import { IUpdateContext } from "../Utilities/IUpdateContext";
+import { IUpdateContext } from '../Utilities/IUpdateContext';
 
 export class ContinuousImageAnimation extends StaticImageAnimation implements IAnimation {
     public speed: number;
@@ -20,14 +20,14 @@ export class ContinuousImageAnimation extends StaticImageAnimation implements IA
         super(id, image);
         this.speed = 50;
         this.offset = 0;
-        var w: number = image.width;
-        var h: number = image.height;
+        const w: number = image.width;
+        const h: number = image.height;
         this.imageSize = new Size(w, h);
     }
 
     public update(context: IUpdateContext): void {
         super.update(context);
-        var delta: number = context.ticks / (100 - this.speed);
+        const delta: number = context.ticks / (100 - this.speed);
         this.offset += delta;
         if (this.offset > this.imageSize.width) {
             this.offset = 0;
@@ -36,8 +36,8 @@ export class ContinuousImageAnimation extends StaticImageAnimation implements IA
 
     internalDraw(graphics: IGraphics, image: HTMLImageElement, rect: IRectangle): void {
         if ((this.imageSize.width - this.offset) < rect.width) {
-            var offsetA: number = this.imageSize.width - this.offset;
-            var offsetB: number = this.imageSize.width - offsetA;
+            const offsetA: number = this.imageSize.width - this.offset;
+            const offsetB: number = this.imageSize.width - offsetA;
             graphics.drawImage(
                 image,
                 new Rectangle(new Point(this.offset, 0), new Size(offsetA, rect.height)),
