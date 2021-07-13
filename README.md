@@ -10,6 +10,8 @@ This is a library that helps you developing 2d videogames for Web, PWA or Cordov
 ## Requirements
 
 * Node
+* Npm
+* Yarn
 * Git
 
 ## Common setup
@@ -22,7 +24,7 @@ cd crappy-engine
 ```
 
 ```bash
-npm install
+yarn install
 ```
 
 ## Steps for build
@@ -30,7 +32,7 @@ npm install
 You can compile this library and the game included by:
 
 ```bash
-npm run build
+yarn build
 ```
 
 ## Steps for play the demo game included

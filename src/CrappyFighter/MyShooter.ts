@@ -1,15 +1,17 @@
 import * as Engine from '../GameEngine';
 import { StartScene, ShooterGame, ShooterScenario, Player, Enemy, Shot, ExplosionType } from './Shooter';
 import { KeyboardInput } from '../GameEngine/Inputs/Joystick/KeyboardInput';
-import { TouchInput } from '../GameEngine';
+import { IJoystickInput, TouchInput } from '../GameEngine';
 import { Sprite } from '../GameEngine/Sprite';
 
 export class MyShooterGame extends ShooterGame {
     constructor(graphics: Engine.IGraphics, canvas: HTMLCanvasElement) {
         super(graphics);
 
-        const startScene = new MyStartScene(new TouchInput(canvas, false), this.camera);
-        const shooterScenario = new MyShooterScenario(new TouchInput(canvas, true), this.camera);
+        // const startScene = new MyStartScene(new TouchInput(canvas, false), this.camera);
+        // const shooterScenario = new MyShooterScenario(new TouchInput(canvas, true), this.camera);
+        const startScene = new MyStartScene(new KeyboardInput(), this.camera);
+        const shooterScenario = new MyShooterScenario(new KeyboardInput(), this.camera);
 
         this.initialize(startScene, shooterScenario);
     }
@@ -102,7 +104,7 @@ class MyStartScene extends StartScene {
     }
 }
 class MyShooterScenario extends ShooterScenario {
-    constructor(public pad: TouchInput, camera: Engine.ICamera) {
+    constructor(public pad: IJoystickInput, camera: Engine.ICamera) {
         super(pad, camera);
 
         this.resources.loadImage('background', 'images/background.sketch.png');

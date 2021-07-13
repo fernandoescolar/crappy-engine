@@ -1,6 +1,12 @@
+import { ICamera } from '../../Cameras/ICamera';
+import { IGraphics } from '../../Primitives/IGraphics';
+import { Point } from '../../Primitives/Point';
+import { Size } from '../../Primitives/Size';
+import { Thing } from '../../Things/Thing';
+import { IUpdateContext } from '../../Utilities/IUpdateContext';
 import { IJoystickInput } from './IJoystickInput';
 
-export class KeyboardInput implements IJoystickInput {
+export class KeyboardInput extends Thing implements IJoystickInput {
     private keyDownEventHandler: (ev: KeyboardEvent) => void;
     private keyUpEventHandler: (ev: KeyboardEvent) => void;
 
@@ -12,6 +18,10 @@ export class KeyboardInput implements IJoystickInput {
     public onfire!: () => void;
 
     constructor() {
+        super('input');
+        this.position = new Point(0, 0);
+        this.size = new Size(0, 0);
+
         this.keyDownEventHandler = (ev: KeyboardEvent) => { this.onKeyDown(ev); };
         this.keyUpEventHandler = (ev: KeyboardEvent) => { this.onKeyUp(ev); };
 
