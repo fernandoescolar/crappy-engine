@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rimraf dist && rollup -c",
     "lint": "tslint --project . -c tslint.json",
-    "lint:fix": "tslint --project . -c tslint.json --fix"
+    "lint:fix": "tslint --project . -c tslint.json --fix",
+    "clean": "rimraf dist"
   },
   "author": {
     "name": "Fernando Escolar",
@@ -15,6 +17,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "rollup": "^2.53.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-typescript": "^1.0.1",
